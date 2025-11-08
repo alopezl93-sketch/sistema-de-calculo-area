@@ -1,0 +1,74 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam backgroundColor #FEFEFE
+skinparam classBackgroundColor #F8F9FA
+skinparam classBorderColor #343A40
+
+' Clase abstracta Figura
+abstract class Figura {
+    + {abstract} calcularArea() : double
+}
+
+' Clase Circulo
+class Circulo {
+    - radio : double
+    + Circulo(radio : double)
+    + calcularArea() : double
+    + getRadio() : double
+}
+
+' Clase Rectangulo
+class Rectangulo {
+    - base : double
+    - altura : double
+    + Rectangulo(base : double, altura : double)
+    + calcularArea() : double
+    + getBase() : double
+    + getAltura() : double
+}
+
+' Clase Triangulo
+class Triangulo {
+    - base : double
+    - altura : double
+    + Triangulo(base : double, altura : double)
+    + calcularArea() : double
+    + getBase() : double
+    + getAltura() : double
+}
+
+' Clase CalculadoraDeAreas
+class CalculadoraDeAreas {
+    + calcularAreaTotal(figuras : List<Figura>) : double
+}
+
+' Relaciones de Herencia
+Figura <|-- Circulo
+Figura <|-- Rectangulo
+Figura <|-- Triangulo
+
+' Relación de uso (Polimorfismo)
+CalculadoraDeAreas ..> Figura : usa
+
+' Notas
+note right of Figura
+  <b>Clase base abstracta</b>
+  Define el contrato calcularArea()
+
+  ✓ OCP: Extensible
+  ✓ LSP: Sustituible
+end note
+
+note bottom of CalculadoraDeAreas
+  <b>Principios aplicados:</b>
+  ✓ NO usa condicionales
+  ✓ Usa polimorfismo (LSP)
+  ✓ Cerrada para modificación
+  ✓ Abierta para extensión (OCP)
+end note
+
+note bottom of Circulo : Área = π × radio²
+note bottom of Rectangulo : Área = base × altura
+note bottom of Triangulo : Área = (base × altura) / 2
+
+@enduml
